@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Pousadas - Home</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <main id="main" data-aos="fade" data-aos-delay="1500" class="container">
+
+  <!-- SEÇÃO PRINCIPAL -->
+
+  <div class="">
+    <div class="text-end mt-5">
+      <input type="submit" value="Cadastrar uma Pousada" onclick="location.href = '{% url 'pousadas:create' %}'" class="btn btn-get-started">
+    </div>
+  </div>
+  
+  <section id="hero" class="hero d-flex flex-column justify-content-center" style="padding-top: 0px !important;" data-aos="fade" data-aos-delay="1500">
+    <div class="">
+      <div class="m-5 text-center">
+        <h2>
+          <span>
+            POUSADAS
+          </span>
+        </h2>
+      </div>
+
+      {% if messages %}
+            
+      <div class="text-center alert alert-success  align-items-center">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+
+      {% endif %}
+
+      <div class="row">
+        {% if object_list %}
+
+        {% for pousada in object_list %}
+        
+        <div class="col-md-6 mt-5">
+
+        <div class="p-5" style="border: 1px solid rgba(255, 255, 255, 0.15);">
+          
+          <h2 class="text-center"><span>{{ pousada.nome }}</span></h2>
+          
+          {% if pousada.imagem %}
+          <img src="{{ pousada.imagem.url }}" alt="Imagem da Pousada {{ pousada.nome }}" class="mt-3 img-fluid">
+          {% endif %}
+
+            <div class="row mt-5">
+                <div class="col-md-12 mb-3">
+                    <h6>Descrição</h6> {{ pousada.descricao }}
+                    <hr>
+                </div>
+                <div  class="col-md-6 p-2">
+                    <h6>Estado</h6> {{ pousada.estado }}
+                    <hr>
+                </div>
+                <div  class="col-md-6 p-2">
+                    <h6>Cidade</h6> {{ pousada.cidade }}
+                    <hr>
+                </div>
+                <div  class="col-md-6 p-2">
+                    <h6>CEP</h6> {{ pousada.cep }}
+                    <hr>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+              <a href="{% url 'pousadas:delete' pk=pousada.id %}" class="btn btn-cancel">Apagar</a>
+              <a href="{% url 'pousadas:update' pk=pousada.id %}" class="btn btn-update">Editar</a>
+              <a href="{% url 'pousadas:detail' pk=pousada.id %}" class="btn btn-details">Detalhes</a>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="text-center">
+          <h2>Nenhuma pousada encontrada!</h2>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader">
+    <div class="line"></div>
+  </div>
+
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>
